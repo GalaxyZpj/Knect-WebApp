@@ -1,2 +1,6 @@
 <h3 class="friend-list--title">FRIENDS</h3>
-<div class="friend-list"></div>
+<div class="friend-list">
+  <ul>
+    <li *ngFor="let friend of data">{{ friend.profile.firstName }} {{ friend.profile.lastName }}</li>
+  </ul>
+</div>

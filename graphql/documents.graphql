@@ -69,3 +69,13 @@ query FetchUser($userId: String!) {
     }
   }
 }
+
+# DASHBOARD
+query FetchFriends {
+  friendList {
+    profile {
+      firstName
+      lastName
+    }
+  }
+}

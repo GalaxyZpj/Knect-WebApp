@@ -1,5 +1,5 @@
 # source: http://localhost:8000/
-# timestamp: Fri May 15 2020 02:49:44 GMT+0530 (India Standard Time)
+# timestamp: Fri May 15 2020 19:36:45 GMT+0530 (India Standard Time)
 
 """
 ObjectType representation for Comment model.
@@ -17,7 +17,7 @@ type CommentType {
 }
 
 """
-Creates Activity for the Post Interface, can only be accessed by superuser
+Creates Activity for the Post Interface, can only be accessed by superuser 
 """
 type CreateActivity {
   activity: PostActivityType
@@ -29,7 +29,7 @@ type CreateComment {
 }
 
 """
-Creates Feeling for the Post Interface, can only be accessed by superuser
+Creates Feeling for the Post Interface, can only be accessed by superuser 
 """
 type CreateFeeling {
   expression: PostFeelingType
@@ -41,7 +41,7 @@ type CreatePost {
 }
 
 """
-Creates SubActivity for the Post Interface, can only be accessed by superuser
+Creates SubActivity for the Post Interface, can only be accessed by superuser 
 """
 type CreateSubActivity {
   subActivity: PostSubActivityType
@@ -104,17 +104,17 @@ type LikePost {
 """Mutations available in the schema """
 type Mutation {
   """
-  Creates Feeling for the Post Interface, can only be accessed by superuser
+  Creates Feeling for the Post Interface, can only be accessed by superuser 
   """
   createFeeling(emoticon: Upload, name: String!): CreateFeeling
 
   """
-  Creates Activity for the Post Interface, can only be accessed by superuser
+  Creates Activity for the Post Interface, can only be accessed by superuser 
   """
   createActivity(emoticon: Upload, name: String!): CreateActivity
 
   """
-  Creates SubActivity for the Post Interface, can only be accessed by superuser
+  Creates SubActivity for the Post Interface, can only be accessed by superuser 
   """
   createSubActivity(activityId: String!, emoticon: Upload, name: String!): CreateSubActivity
 
@@ -324,31 +324,33 @@ type ProfileType {
 
 """Queries available in the schema """
 type Query {
+  friendList: [UserType]
+
   """
-
+  
           Fetches a post corresponding to a postId
-
+          
   """
   post(postId: String!): PostType
 
   """
-
+  
           Fetches all the posts corresponding to the current logged in user
-
+          
   """
   myPosts: [PostType]
 
   """
-
+  
           Fetches posts corresponding to a userId of a friend
-
+          
   """
   friendPosts(friendId: String!): [PostType]
 
   """
-
+  
           Fetches all posts from every friend
-
+          
   """
   allFriendsPosts: [PostType]
   user(userId: String): UserType
