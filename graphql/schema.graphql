@@ -1,0 +1,432 @@
+# source: http://localhost:8000/
+# timestamp: Fri May 15 2020 02:49:44 GMT+0530 (India Standard Time)
+
+"""
+ObjectType representation for Comment model.
+
+User can comment on the posts.
+"""
+type CommentType {
+  id: ID!
+  user: UserType!
+  post: PostType!
+  content: String!
+  created: DateTime!
+  updated: DateTime!
+  subComments: [SubCommentType!]!
+}
+
+"""
+Creates Activity for the Post Interface, can only be accessed by superuser
+"""
+type CreateActivity {
+  activity: PostActivityType
+}
+
+"""Creates a Comment for a Post """
+type CreateComment {
+  comment: CommentType
+}
+
+"""
+Creates Feeling for the Post Interface, can only be accessed by superuser
+"""
+type CreateFeeling {
+  expression: PostFeelingType
+}
+
+"""Creates a Post """
+type CreatePost {
+  post: PostType
+}
+
+"""
+Creates SubActivity for the Post Interface, can only be accessed by superuser
+"""
+type CreateSubActivity {
+  subActivity: PostSubActivityType
+}
+
+"""Creates a reply for the Comment """
+type CreateSubComment {
+  subComment: SubCommentType
+}
+
+"""Mutation to create a user and its profile """
+type CreateUser {
+  user: UserType
+}
+
+"""
+The `Date` scalar type represents a Date
+value as specified by
+[iso8601](https://en.wikipedia.org/wiki/ISO_8601).
+"""
+scalar Date
+
+"""
+The `DateTime` scalar type represents a DateTime
+value as specified by
+[iso8601](https://en.wikipedia.org/wiki/ISO_8601).
+"""
+scalar DateTime
+
+"""Deletes a Comment """
+type DeleteComment {
+  success: Boolean
+  message: String
+}
+
+"""Deletes a Post """
+type DeletePost {
+  success: Boolean
+  message: String
+}
+
+"""Deletes a reply to the comment """
+type DeleteSubComment {
+  success: Boolean
+  message: String
+}
+
+"""
+The `GenericScalar` scalar type represents a generic
+GraphQL scalar value that could be:
+String, Boolean, Int, Float, List or Object.
+"""
+scalar GenericScalar
+
+"""Adds a like to the Post """
+type LikePost {
+  post: PostType
+}
+
+"""Mutations available in the schema """
+type Mutation {
+  """
+  Creates Feeling for the Post Interface, can only be accessed by superuser
+  """
+  createFeeling(emoticon: Upload, name: String!): CreateFeeling
+
+  """
+  Creates Activity for the Post Interface, can only be accessed by superuser
+  """
+  createActivity(emoticon: Upload, name: String!): CreateActivity
+
+  """
+  Creates SubActivity for the Post Interface, can only be accessed by superuser
+  """
+  createSubActivity(activityId: String!, emoticon: Upload, name: String!): CreateSubActivity
+
+  """Creates a Post """
+  createPost(postData: PostInput!): CreatePost
+
+  """Deletes a Post """
+  deletePost(postId: String!): DeletePost
+
+  """Creates a Comment for a Post """
+  createComment(content: String!, postId: String!): CreateComment
+
+  """Deletes a Comment """
+  deleteComment(commentId: String!): DeleteComment
+
+  """Creates a reply for the Comment """
+  createSubComment(commentId: String!, content: String!): CreateSubComment
+
+  """Deletes a reply to the comment """
+  deleteSubComment(subCommentId: String!): DeleteSubComment
+
+  """Adds a like to the Post """
+  likePost(postId: String): LikePost
+
+  """Removes a like from the Post """
+  unlikePost(postId: String): UnlikePost
+
+  """Mutation to create a user and its profile """
+  createUser(userData: UserInput!): CreateUser
+
+  """Obtain JSON Web Token mutation"""
+  tokenAuth(username: String!, password: String!): ObtainJSONWebToken
+  verifyToken(token: String): Verify
+  refreshToken(token: String): Refresh
+}
+
+"""Obtain JSON Web Token mutation"""
+type ObtainJSONWebToken {
+  payload: GenericScalar!
+  refreshExpiresIn: Int!
+  token: String!
+}
+
+"""
+ObjectType representation for PostActivity model.
+
+User can mension their activity in the posts.
+"""
+type PostActivityType {
+  id: ID!
+  name: String!
+  emoticon: String!
+  created: DateTime!
+  updated: DateTime!
+  subActivities: [PostSubActivityType!]!
+}
+
+"""
+ObjectType representation for PostFeeling model.
+
+User can add an expression or feeling to their posts.
+"""
+type PostFeelingType {
+  id: ID!
+  name: String!
+  emoticon: String!
+  created: DateTime!
+  updated: DateTime!
+  postSet: [PostType!]!
+}
+
+"""
+ObjectType representation for PostGIF model.
+
+User can add multiple gifs in their posts.
+"""
+type PostGIFType {
+  id: ID!
+  post: PostType!
+  gif: String!
+  created: DateTime!
+  updated: DateTime!
+}
+
+"""
+ObjectType representation for PostImage model.
+
+User can add multiple images in their posts.
+"""
+type PostImageType {
+  id: ID!
+  post: PostType!
+  image: String!
+  created: DateTime!
+  updated: DateTime!
+}
+
+"""InputObjectType defination for adding a post """
+input PostInput {
+  shareWith: String!
+  content: String!
+  friendsTagged: [String!]
+  feelingId: String
+  subActivityId: String
+  location: String
+  images: [Upload!]
+  videos: [Upload!]
+  gifs: [Upload!]
+}
+
+"""An enumeration."""
+enum PostShareWith {
+  """Public"""
+  PUBLIC
+
+  """Friends"""
+  FRIENDS
+
+  """Only Me"""
+  ONLY_ME
+}
+
+"""
+ObjectType representation for PostSubActivity model.
+
+User can elaborate their activity by choosing a sub activity while creating a posts.
+"""
+type PostSubActivityType {
+  id: ID!
+  activity: PostActivityType!
+  name: String!
+  emoticon: String!
+  created: DateTime!
+  updated: DateTime!
+  postSet: [PostType!]!
+}
+
+"""
+ObjectType representation for Post model.
+
+User can add a post to his wall, tagging friends, uploading images/videos/gifs,
+also has like, comment and even replying to the comments functionality.
+"""
+type PostType {
+  id: ID!
+  user: UserType!
+  shareWith: PostShareWith!
+  content: String!
+  likes: Int!
+  usersLiked: [UserType!]!
+  friendsTagged: [UserType!]!
+  feeling: PostFeelingType
+  subActivity: PostSubActivityType
+  location: String
+  created: DateTime!
+  updated: DateTime!
+  images: [PostImageType!]!
+  videos: [PostVideoType!]!
+  gifs: [PostGIFType!]!
+  comments: [CommentType!]!
+  liked: Boolean
+}
+
+"""
+ObjectType representation for PostVideo model.
+
+User can add multiple videos in their posts.
+"""
+type PostVideoType {
+  id: ID!
+  post: PostType!
+  video: String!
+  created: DateTime!
+  updated: DateTime!
+}
+
+"""An enumeration."""
+enum ProfileGender {
+  """Male"""
+  MALE
+
+  """Female"""
+  FEMALE
+
+  """Other"""
+  OTHER
+}
+
+"""InputObjectType defination for Profile model """
+input ProfileModelInput {
+  firstName: String!
+  lastName: String!
+  gender: String!
+  dob: Date!
+}
+
+"""DjangoObjectType defination for Profile model """
+type ProfileType {
+  user: UserType!
+  firstName: String!
+  lastName: String!
+  gender: ProfileGender!
+  dob: Date
+  friends: [UserType!]!
+  updated: DateTime!
+}
+
+"""Queries available in the schema """
+type Query {
+  """
+
+          Fetches a post corresponding to a postId
+
+  """
+  post(postId: String!): PostType
+
+  """
+
+          Fetches all the posts corresponding to the current logged in user
+
+  """
+  myPosts: [PostType]
+
+  """
+
+          Fetches posts corresponding to a userId of a friend
+
+  """
+  friendPosts(friendId: String!): [PostType]
+
+  """
+
+          Fetches all posts from every friend
+
+  """
+  allFriendsPosts: [PostType]
+  user(userId: String): UserType
+  userList: [UserType]
+}
+
+type Refresh {
+  payload: GenericScalar!
+  refreshExpiresIn: Int!
+  token: String!
+}
+
+"""
+ObjectType representation for SubComment model.
+
+Users can reply to the comment on the posts.
+"""
+type SubCommentType {
+  id: ID!
+  user: UserType!
+  comment: CommentType!
+  content: String!
+  created: DateTime!
+  updated: DateTime!
+}
+
+"""Removes a like from the Post """
+type UnlikePost {
+  post: PostType
+}
+
+"""
+Create scalar that ignores normal serialization/deserialization, since
+that will be handled by the multipart request spec
+"""
+scalar Upload
+
+"""InputObjectType defination for User and Profile InputTypeObjects """
+input UserInput {
+  user: UserModelInput
+  profile: ProfileModelInput
+}
+
+"""InputObjectType defination for User model """
+input UserModelInput {
+  username: String!
+  email: String!
+  mobile: String!
+  password: String!
+}
+
+"""DjangoObjectType defination for User model """
+type UserType {
+  id: ID!
+  password: String!
+  lastLogin: DateTime
+
+  """
+  Designates that this user has all permissions without explicitly assigning them.
+  """
+  isSuperuser: Boolean!
+  username: String!
+  email: String!
+  mobile: String!
+  isStaff: Boolean!
+  isActive: Boolean!
+  isVerified: Boolean!
+  dateJoined: DateTime!
+  updated: DateTime!
+  profile: ProfileType
+  friends: [ProfileType!]!
+  posts: [PostType!]!
+  usersLiked: [PostType!]!
+  friendsTagged: [PostType!]!
+  commentSet: [CommentType!]!
+  subcommentSet: [SubCommentType!]!
+}
+
+type Verify {
+  payload: GenericScalar!
+}

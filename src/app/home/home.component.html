@@ -3,43 +3,43 @@
   <h4 class="login-pane--subtitle">Where social media meets modenity</h4>
   <h3 class="login-form--title">Already have an account?</h3>
 
-  <form class="login-form" action="">
-    <input type="text" placeholder="Username" name="username" id="username" required />
-    <input type="password" placeholder="Password" name="password" id="password" required />
+  <form class="login-form" (ngSubmit)="onLoginSubmit(loginForm)" #loginForm="ngForm">
+    <input type="text" placeholder="Username" name="username" ngModel required />
+    <input type="password" placeholder="Password" name="password" ngModel required />
     <button type="submit">Login</button>
   </form>
-  
+
 </div>
 <div class="register-pane">
   <h1 class="register-pane--title">Create an account</h1>
 
-  <form action="">
+  <form (ngSubmit)="onRegisterSubmit(registerForm)" #registerForm="ngForm">
     <h4 class="input-label">Name</h4>
     <div class="input-double">
-      <input type="text" placeholder="First Name" name="firstName" id="firstName" required />
-      <input type="text" placeholder="Last Name" name="firstName" id="lastName" required />
+      <input type="text" placeholder="First Name" name="firstName" id="firstName" ngModel required />
+      <input type="text" placeholder="Last Name" name="lastName" id="lastName" ngModel required />
     </div>
     <div class="input-radio">
       <h4>Gender</h4>
-      <input type="radio" id="gender" name="gender" value="male" required />
+      <input type="radio" name="gender" ngModel value="male" required />
       Male
-      <input type="radio" id="gender" name="gender" value="female" required />
+      <input type="radio" name="gender" ngModel value="female" required />
       Female
-      <input type="radio" id="gender" name="gender" value="other" required />
+      <input type="radio" name="gender" ngModel value="other" required />
       Other
     </div>
     <h4 class="input-label">Birthday</h4>
     <div class="input-single">
-      <input type="date" name="dob" id="dob" required />
+      <input type="date" name="dob" id="dob" ngModel required />
     </div>
     <h4 class="input-label">Credentials</h4>
     <div class="input-double">
-      <input type="email" name="email" id="email" placeholder="Email" required />
-      <input type="number" name="mobile" id="mobile" placeholder="Mobile" required />
+      <input type="email" name="email" id="email" ngModel placeholder="Email" email required />
+      <input type="number" name="mobile" id="mobile" ngModel placeholder="Mobile" required />
     </div>
     <div class="input-double">
-      <input type="text" name="username" id="username" placeholder="Username" required />
-      <input type="password" name="password" id="password" placeholder="Password" required />
+      <input type="text" name="username" ngModel placeholder="Username" required />
+      <input type="password" name="password" ngModel placeholder="Password" required />
     </div>
     <button type="submit">Create account</button>
   </form>

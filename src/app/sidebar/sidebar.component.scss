@@ -1,0 +1,43 @@
+@import "~src/scss/variables";
+
+:host {
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100vh;
+  width: 60px;
+  background: map-get($map: $theme, $key: "primary");
+  box-shadow: 0 0 5px map-get($map: $theme, $key: "shadow-color");
+}
+
+.brand {
+  display: block;
+  width: 100%;
+  text-align: center;
+  padding-right: 8px;
+  font-family: "Arizonia", cursive;
+  font-size: 2.5rem;
+  color: map-get($map: $theme, $key: "pre-accent");
+  text-decoration: none;
+}
+
+.sidenav-seperator {
+  flex-basis: 5%;
+}
+
+.sidenav-icon {
+  padding: 16px;
+
+  a {
+    display: block;
+  }
+
+  svg path {
+    color: map-get($map: $theme, $key: "pre-accent");
+  }
+}
+
+#userIcon {
+  margin-top: auto;
+}

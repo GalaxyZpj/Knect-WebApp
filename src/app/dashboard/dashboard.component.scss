@@ -1,0 +1,9 @@
+@import "~src/scss/variables";
+@import "~src/scss/mixins";
+
+div {
+  padding-left: 60px;
+  background: map-get($map: $theme, $key: "secondary");
+  height: 100%;
+  padding-right: 260px;
+}

@@ -1,0 +1,21 @@
+@import "~src/scss/variables";
+
+:host {
+  background: map-get($map: $theme, $key: "primary");
+  box-shadow: 0 0 5px map-get($map: $theme, $key: "shadow-color");
+  position: fixed;
+  right: 0;
+  top: 0;
+  width: 260px;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.friend-list--title {
+  margin: 0;
+  padding: 8px;
+  font-size: 2rem;
+  text-align: center;
+  border-bottom: 1px solid map-get($map: $theme, $key: "pre-accent");
+}

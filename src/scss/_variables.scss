@@ -1,6 +1,27 @@
-$primary: #011627;
-$secondary: #fdfffc;
-$btn-bg-color: #09233a;
-$btn-bg-color-hover: #133049;
-$primary-font-color: #f3f2f2;
-$secondary-font-color: #465362;
+@import './colors';
+
+$primary: var(--home-primary);
+$secondary: var(--home-secondary);
+$btn-bg-color: var(--home-btn-bg-color);
+$btn-bg-color-hover: var(--home-btn-bg-color-hover);
+$primary-font-color: var(--home-primary-font-color);
+$secondary-font-color: var(--home-secondary-font-color);
+
+$accent-colors: (
+  "a1": var(--accent-1),
+  "a2": var(--accent-2),
+  "a3": var(--accent-3),
+  "a4": var(--accent-4),
+  "a5": var(--accent-5),
+  "a6": var(--accent-6),
+  "a7": var(--accent-7),
+  "a8": var(--accent-8),
+);
+
+$theme: (
+  "primary": var(--ui-primary),
+  "secondary": var(--ui-secondary),
+  "pre-accent": var(--ui-pre-accent),
+  "color": var(--ui-color),
+  "shadow-color": var(--ui-shadow-color),
+);

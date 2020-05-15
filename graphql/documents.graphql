@@ -1,0 +1,71 @@
+# USER
+mutation AuthorizeUser($username: String!, $password: String!) {
+  tokenAuth(username: $username, password: $password) {
+    token
+    payload
+    refreshExpiresIn
+  }
+}
+
+mutation RegisterUser(
+  $username: String!
+  $password: String!
+  $email: String!
+  $mobile: String!
+  $firstName: String!
+  $lastName: String!
+  $gender: String!
+  $dob: Date!
+) {
+  createUser(
+    userData: {
+      user: {
+        username: $username
+        email: $email
+        mobile: $mobile
+        password: $password
+      }
+      profile: {
+        firstName: $firstName
+        lastName: $lastName
+        gender: $gender
+        dob: $dob
+      }
+    }
+  ) {
+    user {
+      id
+      username
+    }
+  }
+}
+
+query FetchAllUsers {
+  userList {
+    username
+		profile {
+      firstName
+      lastName
+    }
+  }
+}
+
+query FetchUser($userId: String!) {
+  user(userId: $userId) {
+    username
+    email
+    mobile
+    profile {
+      firstName
+      lastName
+      gender
+      dob
+      friends {
+        profile{
+          firstName
+          lastName
+        }
+      }
+    }
+  }
+}
