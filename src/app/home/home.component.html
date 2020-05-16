@@ -3,21 +3,61 @@
   <h4 class="login-pane--subtitle">Where social media meets modenity</h4>
   <h3 class="login-form--title">Already have an account?</h3>
 
-  <form class="login-form" (ngSubmit)="onLoginSubmit(loginForm)" #loginForm="ngForm">
-    <input type="text" placeholder="Username" name="username" ngModel required />
-    <input type="password" placeholder="Password" name="password" ngModel required />
+  <form
+    class="login-form"
+    (ngSubmit)="onLoginSubmit()"
+    #loginForm="ngForm"
+    [ngClass]="{ invalidForm: loginForm.submitted && loginForm.invalid }"
+  >
+    <input
+      type="text"
+      placeholder="Username"
+      name="username"
+      ngModel
+      required
+    />
+    <input
+      type="password"
+      placeholder="Password"
+      name="password"
+      ngModel
+      required
+    />
     <button type="submit">Login</button>
+    <h4
+      class="login-form--error"
+      *ngIf="loginForm.submitted && loginForm.invalid"
+    >
+      Please provide valid credentials
+    </h4>
   </form>
-
 </div>
 <div class="register-pane">
   <h1 class="register-pane--title">Create an account</h1>
 
-  <form (ngSubmit)="onRegisterSubmit(registerForm)" #registerForm="ngForm">
+  <form
+    (ngSubmit)="onRegisterSubmit()"
+    #registerForm="ngForm"
+    [ngClass]="{ invalidForm: registerForm.submitted && registerForm.invalid }"
+  >
     <h4 class="input-label">Name</h4>
     <div class="input-double">
-      <input type="text" placeholder="First Name" name="firstName" id="firstName" ngModel required />
-      <input type="text" placeholder="Last Name" name="lastName" id="lastName" ngModel required />
+      <input
+        type="text"
+        placeholder="First Name"
+        name="firstName"
+        id="firstName"
+        ngModel
+        required
+      />
+      <input
+        type="text"
+        placeholder="Last Name"
+        name="lastName"
+        id="lastName"
+        ngModel
+        required
+      />
     </div>
     <div class="input-radio">
       <h4>Gender</h4>
@@ -34,14 +74,47 @@
     </div>
     <h4 class="input-label">Credentials</h4>
     <div class="input-double">
-      <input type="email" name="email" id="email" ngModel placeholder="Email" email required />
-      <input type="number" name="mobile" id="mobile" ngModel placeholder="Mobile" required />
+      <input
+        type="email"
+        name="email"
+        id="email"
+        ngModel
+        placeholder="Email"
+        email
+        required
+      />
+      <input
+        type="number"
+        name="mobile"
+        id="mobile"
+        ngModel
+        placeholder="Mobile"
+        required
+      />
     </div>
     <div class="input-double">
-      <input type="text" name="username" ngModel placeholder="Username" required />
-      <input type="password" name="password" ngModel placeholder="Password" required />
+      <input
+        type="text"
+        name="username"
+        ngModel
+        placeholder="Username"
+        required
+      />
+      <input
+        type="password"
+        name="password"
+        ngModel
+        placeholder="Password"
+        required
+      />
     </div>
     <button type="submit">Create account</button>
+    <h3
+      class="register-form--error"
+      *ngIf="registerForm.submitted && registerForm.invalid"
+    >
+      Provide valid values for the fields marked in red
+    </h3>
   </form>
 
   <p class="footer-desc">

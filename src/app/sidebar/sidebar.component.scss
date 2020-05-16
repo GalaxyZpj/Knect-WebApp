@@ -31,13 +31,14 @@
 
   a {
     display: block;
+    cursor: pointer;
   }
 
-  svg path {
-    color: map-get($map: $theme, $key: "pre-accent");
+  svg-icon {
+    fill: map-get($map: $theme, $key: "pre-accent");
   }
 }
 
-#userIcon {
+#toggleTheme {
   margin-top: auto;
 }

@@ -129,6 +129,9 @@ input:focus {
         background: $primary;
         transition: background 200ms ease-out;
       }
+      &:focus {
+        outline: none;
+      }
     }
   }
 
@@ -172,4 +175,21 @@ input:focus {
     margin: auto 0 0 0;
     text-align: center;
   }
+}
+
+.invalidForm {
+  input.ng-invalid {
+    border: 2px solid red !important;
+  }
+}
+
+.login-form--error,
+.register-form--error {
+  color: red;
+  margin: 5px 0 0 0;
+  text-align: center;
+}
+
+invalidGender {
+  color: red;
 }

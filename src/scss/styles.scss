@@ -3,7 +3,7 @@
 
 @font-face {
   font-family: "Arizonia";
-  src: url(./Arizonia-Regular.ttf);
+  src: url(../fonts/Arizonia-Regular.ttf);
 }
 
 * {
@@ -12,8 +12,10 @@
 
 :root {
   font-family: "Baloo Thambi 2", cursive;
+  background-color: var(--ui-primary);
 }
 
 body {
   margin: 0;
+  overscroll-behavior-y: none;
 }
