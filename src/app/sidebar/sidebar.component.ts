@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output } from '@angular/core';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'sidebar',
@@ -6,12 +7,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./sidebar.component.scss']
 })
 export class SidebarComponent implements OnInit {
+
   dark: boolean = false;
+
+  @Output() component = new Subject<{ name: string }>();
 
   constructor() { }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void { }
 
   toggleTheme() {
     this.dark = !this.dark;
@@ -24,8 +27,13 @@ export class SidebarComponent implements OnInit {
       '--ui-shadow-color'
     ]
     for (let property of properties) {
-      let value = getComputedStyle(document.documentElement).getPropertyValue(property+'-'+theme);
+      let value = getComputedStyle(document.documentElement).getPropertyValue(property + '-' + theme);
       document.documentElement.style.setProperty(property, value);
     }
   }
+
+  sendComponentName(componentName: string) {
+    this.component.next({ name: componentName });
+  }
+
 }

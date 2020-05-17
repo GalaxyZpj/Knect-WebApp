@@ -14,16 +14,24 @@ import { WallComponent } from './wall/wall.component';
 import { ChatComponent } from './chat/chat.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
+import { BackdropComponent } from './backdrop/backdrop.component';
+import { CreatePostComponent } from './backdrop/create-post/create-post.component';
 
 
 @NgModule({
+  entryComponents: [
+    BackdropComponent,
+    CreatePostComponent
+  ],
   declarations: [
     AppComponent,
     HomeComponent,
     SidebarComponent,
     DashboardComponent,
     ChatComponent,
-    WallComponent
+    WallComponent,
+    BackdropComponent,
+    CreatePostComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,4 +1,6 @@
-<sidebar></sidebar>
+<ng-template #loadBackdrop ></ng-template>
+
+<sidebar (component)="triggerBackdrop($event)"></sidebar>
 
 <div>
   <router-outlet></router-outlet>
