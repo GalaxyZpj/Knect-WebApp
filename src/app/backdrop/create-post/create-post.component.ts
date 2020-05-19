@@ -1,4 +1,7 @@
-import { Component, OnInit, Input, ViewContainerRef } from '@angular/core';
+import { Component, OnInit, Input, ViewContainerRef, ViewChild, HostBinding, Renderer2 } from '@angular/core';
+import { DynamicComponentService } from 'src/app/dynamic-component.service';
+import { AddFeelingComponent } from '../add-feeling/add-feeling.component';
+import { faTimes } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'createPost',
@@ -7,16 +10,29 @@ import { Component, OnInit, Input, ViewContainerRef } from '@angular/core';
 })
 export class CreatePostComponent implements OnInit {
 
+  crossIcon = faTimes;
+
+  components: object = {
+    addFeeling: AddFeelingComponent,
+  }
+
   @Input() backdropRef: ViewContainerRef;
   name: string;
 
-  constructor() { }
+  @ViewChild('nestedDynamicComponent', { read: ViewContainerRef }) nestedContainer: ViewContainerRef;
+
+  constructor(private dynamicComponentService: DynamicComponentService, private renderer: Renderer2) { }
 
   ngOnInit(): void {
     this.name = localStorage.getItem('username');
   }
 
   ngOnDestroy(): void {
+  }
+
+  addNestedComponent(componentName: string): void {
+    this.renderer.setStyle(document.getElementById('createPostDiv'), 'transform', 'translateX(-110%)');
+    const nestedComponentRef = this.dynamicComponentService.createDynamicComponent(this.nestedContainer, this.components[componentName]);
   }
 
 }

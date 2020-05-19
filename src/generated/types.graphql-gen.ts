@@ -627,6 +627,23 @@ export type FetchFriendsQuery = (
   )>>> }
 );
 
+export type FeelingMutationVariables = {
+  name: Scalars['String'];
+  emoticon?: Maybe<Scalars['Upload']>;
+};
+
+
+export type FeelingMutation = (
+  { __typename?: 'Mutation' }
+  & { createFeeling?: Maybe<(
+    { __typename?: 'CreateFeeling' }
+    & { expression?: Maybe<(
+      { __typename?: 'PostFeelingType' }
+      & Pick<PostFeelingType, 'id' | 'name' | 'emoticon'>
+    )> }
+  )> }
+);
+
 export const AuthorizeUserDocument = gql`
     mutation AuthorizeUser($username: String!, $password: String!) {
   tokenAuth(username: $username, password: $password) {
@@ -726,5 +743,24 @@ export const FetchFriendsDocument = gql`
   })
   export class FetchFriendsGQL extends Apollo.Query<FetchFriendsQuery, FetchFriendsQueryVariables> {
     document = FetchFriendsDocument;
+    
+  }
+export const FeelingDocument = gql`
+    mutation feeling($name: String!, $emoticon: Upload) {
+  createFeeling(name: $name, emoticon: $emoticon) {
+    expression {
+      id
+      name
+      emoticon
+    }
+  }
+}
+    `;
+
+  @Injectable({
+    providedIn: 'root'
+  })
+  export class FeelingGQL extends Apollo.Mutation<FeelingMutation, FeelingMutationVariables> {
+    document = FeelingDocument;
     
   }

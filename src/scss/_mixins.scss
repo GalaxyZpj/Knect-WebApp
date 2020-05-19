@@ -1,3 +1,4 @@
+// ANIMATION MIXINS
 @mixin hover($amount, $result) {
   &:hover {
     filter: brightness($amount);
@@ -7,4 +8,36 @@
     filter: brightness($result);
     transition: filter 200ms ease-out;
   }
+}
+
+@mixin slide-left($property) {
+  transition: $property 220ms;
+}
+
+
+// STYLING MIXINS
+@mixin popup-navigation-btn($top, $right, $bottom, $left) {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: $top;
+  right: $right;
+  bottom: $bottom;
+  left: $left;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  background-color: map-get($map: $theme, $key: "secondary");
+  font-size: 1rem;
+  cursor: pointer;
+  @include hover(85%, 100%);
+}
+
+@mixin popup-title {
+  margin: 0;
+  padding: 8px;
+  text-align: center;
+  font-size: 2rem;
+  border-bottom: 2px solid map-get($map: $theme, $key: "secondary");
 }

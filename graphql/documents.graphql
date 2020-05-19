@@ -79,3 +79,13 @@ query FetchFriends {
     }
   }
 }
+
+mutation feeling($name: String!, $emoticon: Upload) {
+  createFeeling(name: $name, emoticon: $emoticon) {
+    expression {
+      id
+      name
+      emoticon
+    }
+  }
+}

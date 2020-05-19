@@ -1,30 +1,33 @@
-<span class="close-backdrop" (click)="this.backdropRef.clear()">X</span>
-
-<h2 class="title">Create Post</h2>
-
-<form>
-  <div class="user-bar">
-    <div class="user-image"></div>
-    <div class="user-name"><span>Pranav Jain</span></div>
-    <div class="share-privacy">
-      <label for="sharedWith">Share with:&nbsp;&nbsp;</label>
-      <select name="shared_with" class="custom-select" ngModel>
-        <option value="public">Public</option>
-        <option value="friends">Friends</option>
-        <option value="only_me">Only me</option>
-      </select>
+<div class="create-post-div" id="createPostDiv">
+  <span class="close-backdrop" (click)="this.backdropRef.clear()"><fa-icon [icon]="crossIcon"></fa-icon></span>
+  <h2 class="title">Create Post</h2>
+  <form #createPostForm id="createPostForm">
+    <div class="user-bar">
+      <div class="user-image"></div>
+      <div class="user-name"><span>Pranav Jain</span></div>
+      <div class="share-privacy">
+        <label for="sharedWith">Share with:&nbsp;&nbsp;</label>
+        <select name="shared_with" class="custom-select" ngModel>
+          <option value="public">Public</option>
+          <option value="friends">Friends</option>
+          <option value="only_me">Only me</option>
+        </select>
+      </div>
     </div>
-  </div>
-  <textarea class="post-content" name="content" placeholder="What's on your mind?" ngModel></textarea>
-  <div class="add-to-post">
-    <label for="">Add to Post</label>
-    <a class="first"><svg-icon src="assets/icons/create-post/tag.svg" [applyClass]="true"></svg-icon></a>
-    <a><svg-icon src="assets/icons/create-post/image.svg" [applyClass]="true"></svg-icon></a>
-    <a><svg-icon src="assets/icons/create-post/gif.svg" [applyClass]="true"></svg-icon></a>
-    <a><svg-icon src="assets/icons/create-post/video.svg" [applyClass]="true"></svg-icon></a>
-    <a><svg-icon src="assets/icons/create-post/gps.svg" [applyClass]="true"></svg-icon></a>
-  </div>
-  <button class="post-btn">Post</button>
-</form>
+    <textarea class="post-content" name="content" placeholder="What's on your mind?" ngModel></textarea>
+    <div class="add-to-post">
+      <label for="">Add to Post</label>
+      <a class="first"><svg-icon src="assets/icons/create-post/tag.svg" [applyClass]="true"></svg-icon></a>
+      <a><svg-icon src="assets/icons/create-post/image.svg" [applyClass]="true"></svg-icon></a>
+      <a><svg-icon src="assets/icons/create-post/gif.svg" [applyClass]="true"></svg-icon></a>
+      <a><svg-icon src="assets/icons/create-post/video.svg" [applyClass]="true"></svg-icon></a>
+      <a><svg-icon src="assets/icons/create-post/gps.svg" [applyClass]="true"></svg-icon></a>
+      <a (click)="addNestedComponent('addFeeling')"><svg-icon src="assets/icons/create-post/feelings.svg" [applyClass]="true"></svg-icon></a>
+    </div>
+    <button class="post-btn">Post</button>
+  </form>
+</div>
+
+<ng-template #nestedDynamicComponent></ng-template>
 
 

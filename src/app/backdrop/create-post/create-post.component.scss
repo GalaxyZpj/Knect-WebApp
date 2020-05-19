@@ -1,45 +1,36 @@
 @import "~src/scss/variables";
 @import "~src/scss/mixins";
+@import "~/../node_modules/@fortawesome/fontawesome-free/scss/fontawesome.scss";
 
 :host {
+  overflow: hidden;
   position: absolute;
   top: 10vh;
-  bottom: 10vh;
-  height: 500px;
-  width: 500px;
   background: map-get($map: $theme, $key: "primary");
   border: 4px solid;
   border-image: linear-gradient(map-get($map: $theme, $key: "accent-g1"), map-get($map: $theme, $key: "accent-g2")) 1;
-  // border-radius: 16px;
-  // box-shadow: 0 0 1px map-get($map: $theme, $key: "box-shadow-color");
-  // box-shadow: 0 0 3px linear-gradient(map-get($map: $theme, $key: "accent-g1"), map-get($map: $theme, $key: "accent-g2"));
   padding: 10px 0;
+}
+
+.create-post-div {
+  @include slide-left(transform);
+  height: 500px;
+  width: 500px;
   display: grid;
   grid-template-rows: 68px auto;
 }
 
 .close-backdrop {
-  position: absolute;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  top: 8px;
-  right: 8px;
-  width: 35px;
-  height: 35px;
-  border-radius: 50%;
-  background-color: map-get($map: $theme, $key: "secondary");
-  font-size: 1.2rem;
-  cursor: pointer;
-  @include hover(85%, 100%);
+  @include popup-navigation-btn(8px, 8px, auto, auto);
 }
 
 .title {
-  margin: 0;
-  padding: 8px;
-  text-align: center;
-  font-size: 2rem;
-  border-bottom: 2px solid map-get($map: $theme, $key: "secondary");
+  // margin: 0;
+  // padding: 8px;
+  // text-align: center;
+  // font-size: 2rem;
+  // border-bottom: 2px solid map-get($map: $theme, $key: "secondary");
+  @include popup-title;
 }
 
 form {
@@ -95,6 +86,9 @@ form {
     display: inline-block;
     width: 25px;
     height: 25px;
+    &:hover {
+      cursor: pointer;
+    }
   }
   svg-icon {
     height: 100%;
