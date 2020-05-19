@@ -24,7 +24,9 @@ export class SidebarComponent implements OnInit {
       '--ui-secondary',
       '--ui-pre-accent',
       '--ui-color',
-      '--ui-shadow-color'
+      '--ui-shadow-color',
+      '--ui-backdrop-bg-color',
+      '--ui-box-shadow-color',
     ]
     for (let property of properties) {
       let value = getComputedStyle(document.documentElement).getPropertyValue(property + '-' + theme);

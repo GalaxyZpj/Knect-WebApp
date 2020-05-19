@@ -19,3 +19,7 @@ body {
   margin: 0;
   overscroll-behavior-y: none;
 }
+
+.backdrop-open {
+  overflow: hidden;
+}

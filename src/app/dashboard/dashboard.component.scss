@@ -1,5 +1,4 @@
 @import "~src/scss/variables";
-@import "~src/scss/mixins";
 
 :host {
   color: map-get($map: $theme, $key: "color");

@@ -1,0 +1,10 @@
+@mixin hover($amount, $result) {
+  &:hover {
+    filter: brightness($amount);
+    transition: filter 200ms ease-out;
+  }
+  &:not(:hover) {
+    filter: brightness($result);
+    transition: filter 200ms ease-out;
+  }
+}

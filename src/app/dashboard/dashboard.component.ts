@@ -1,6 +1,5 @@
 import { Component, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { BackdropComponent } from '../backdrop/backdrop.component';
-import { CreatePostComponent } from '../backdrop/create-post/create-post.component';
 import { DynamicComponentService } from '../dynamic-component.service';
 
 @Component({
@@ -9,10 +8,6 @@ import { DynamicComponentService } from '../dynamic-component.service';
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
-
-  components: object = {
-    create: CreatePostComponent
-  }
 
   @ViewChild('loadBackdrop', { read: ViewContainerRef }) container: ViewContainerRef;
 
@@ -24,7 +19,7 @@ export class DashboardComponent implements OnInit {
 
   triggerBackdrop(data: any) {
     const componentRef = this.dcService.createDynamicComponent(this.container, BackdropComponent);
-    (<BackdropComponent>componentRef.instance).component = this.components[data.name];
+    (<BackdropComponent>componentRef.instance).component = data.name;
     (<BackdropComponent>componentRef.instance).backdropRef = this.container;
   }
 

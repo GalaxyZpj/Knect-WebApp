@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, ViewContainerRef } from '@angular/core';
 
 @Component({
   selector: 'createPost',
@@ -7,9 +7,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CreatePostComponent implements OnInit {
 
+  @Input() backdropRef: ViewContainerRef;
+  name: string;
+
   constructor() { }
 
   ngOnInit(): void {
+    this.name = localStorage.getItem('username');
+  }
+
+  ngOnDestroy(): void {
   }
 
 }
