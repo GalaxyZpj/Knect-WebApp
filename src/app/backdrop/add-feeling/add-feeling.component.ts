@@ -11,6 +11,7 @@ import { FeelingGQL } from 'src/generated/types.graphql-gen';
 export class AddFeelingComponent implements OnInit, AfterViewInit {
 
   backBtn = faChevronLeft;
+  file: File = null;
 
   @HostBinding('style.transform') transform;
   @HostBinding('style.left') left;
@@ -33,12 +34,18 @@ export class AddFeelingComponent implements OnInit, AfterViewInit {
     this.renderer.setStyle(document.getElementById('createPostDiv'), 'transform', 'translateX(0)');
   }
 
+  handleFileInput(files: FileList) {
+    this.file = files.item(0);
+  }
+
   onSubmit(): void {
-    this.createFeeling.mutate(this.form.value, { context: { useMultipart: true } }).subscribe(
+    this.createFeeling.mutate({
+      name: this.form.value.name,
+      emoticon: this.file
+    }, { context: { useMultipart: true } }).subscribe(
       response => {
         console.log(response);
       }
     );
   }
-
 }

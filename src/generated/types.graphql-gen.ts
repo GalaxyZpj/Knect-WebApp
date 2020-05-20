@@ -629,7 +629,7 @@ export type FetchFriendsQuery = (
 
 export type FeelingMutationVariables = {
   name: Scalars['String'];
-  emoticon?: Maybe<Scalars['Upload']>;
+  emoticon: Scalars['Upload'];
 };
 
 
@@ -746,7 +746,7 @@ export const FetchFriendsDocument = gql`
     
   }
 export const FeelingDocument = gql`
-    mutation feeling($name: String!, $emoticon: Upload) {
+    mutation feeling($name: String!, $emoticon: Upload!) {
   createFeeling(name: $name, emoticon: $emoticon) {
     expression {
       id

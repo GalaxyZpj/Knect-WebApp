@@ -2,8 +2,8 @@
 
 <h2 class="title">Add Feeling</h2>
 
-<form (ngSubmit)="onSubmit()" #createFeelingForm>
-  <input type="text" name="name" placeholder="Name">
-  <input type="file" name="emoticon">
+<form (ngSubmit)="onSubmit()" #createFeelingForm="ngForm">
+  <input type="text" name="name" placeholder="Name" ngModel>
+  <input type="file" name="emoticon" (change)="handleFileInput($event.target.files)">
   <button type="submit">Submit</button>
 </form>
