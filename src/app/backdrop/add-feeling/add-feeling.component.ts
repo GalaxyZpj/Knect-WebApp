@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, HostBinding, Renderer2, ViewChild } from '@angular/core';
+import { Component, OnInit, AfterViewInit, HostBinding, Renderer2, ViewChild, ViewContainerRef, Input } from '@angular/core';
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons'
 import { NgForm } from '@angular/forms';
 import { FeelingGQL } from 'src/generated/types.graphql-gen';
@@ -13,6 +13,7 @@ export class AddFeelingComponent implements OnInit, AfterViewInit {
   backBtn = faChevronLeft;
   file: File = null;
 
+  @Input() selfViewRef: ViewContainerRef;
   @HostBinding('style.transform') transform;
   @HostBinding('style.left') left;
 
@@ -32,6 +33,9 @@ export class AddFeelingComponent implements OnInit, AfterViewInit {
   goBack(): void {
     this.left = '110%';
     this.renderer.setStyle(document.getElementById('createPostDiv'), 'transform', 'translateX(0)');
+    setTimeout(() => {
+      this.selfViewRef.clear();
+    }, 400);
   }
 
   handleFileInput(files: FileList) {

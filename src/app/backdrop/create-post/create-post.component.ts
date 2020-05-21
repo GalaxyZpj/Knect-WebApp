@@ -33,6 +33,7 @@ export class CreatePostComponent implements OnInit {
   addNestedComponent(componentName: string): void {
     this.renderer.setStyle(document.getElementById('createPostDiv'), 'transform', 'translateX(-110%)');
     const nestedComponentRef = this.dynamicComponentService.createDynamicComponent(this.nestedContainer, this.components[componentName]);
+    (<AddFeelingComponent>nestedComponentRef.instance).selfViewRef = this.nestedContainer;
   }
 
 }

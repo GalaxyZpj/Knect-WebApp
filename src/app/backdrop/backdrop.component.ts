@@ -1,4 +1,4 @@
-import { Component, Input, ViewChild, ViewContainerRef, AfterViewInit, OnDestroy, OnInit, Renderer2 } from '@angular/core';
+import { Component, Input, ViewChild, ViewContainerRef, AfterViewInit, OnDestroy, OnInit, Renderer2, HostListener } from '@angular/core';
 import { DynamicComponentService } from '../dynamic-component.service';
 import { CreatePostComponent } from '../backdrop/create-post/create-post.component';
 
@@ -11,6 +11,9 @@ export class BackdropComponent implements OnInit, AfterViewInit, OnDestroy {
 
   @Input() component: string;
   @Input() backdropRef: ViewContainerRef;
+  @HostListener('document:keydown.escape', ['$event']) onKeydownHandler(event: KeyboardEvent) {
+      this.backdropRef.clear();
+  }
 
   components: object = {
     create: CreatePostComponent

@@ -1,18 +1,38 @@
-// $fa_path: "../../node_modules/@fortawesome/fontawesome-free/less";
-// @import "../../node_modules/@fortawesome/fontawesome-free/less/_variables.less";
-// @import "../../node_modules/@fortawesome/fontawesome-free/less/_mixins.less";
-// @import "../../node_modules/@fortawesome/fontawesome-free/less/_path.less";
-// @import "../../node_modules/@fortawesome/fontawesome-free/less/_core.less";
-// @import "../../node_modules/@fortawesome/fontawesome-free/less/_icons.less";
-@import "../../node_modules/@fortawesome/fontawesome-free/scss/fontawesome.scss";
-
-
-@import url("https://fonts.googleapis.com/css2?family=Baloo+Thambi+2:wght@400;500;600;700;800&display=swap");
 @import "./colors";
 
 @font-face {
   font-family: "Arizonia";
   src: url(../fonts/Arizonia-Regular.ttf);
+}
+
+@font-face {
+  font-family: "Baloo Thambi 2";
+  src: url(../fonts/BalooThambi2-Regular.ttf);
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: "Baloo Thambi 2";
+  src: url(../fonts/BalooThambi2-Medium.ttf);
+  font-weight: 500;
+}
+
+@font-face {
+  font-family: "Baloo Thambi 2";
+  src: url(../fonts/BalooThambi2-SemiBold.ttf);
+  font-weight: 600;
+}
+
+@font-face {
+  font-family: "Baloo Thambi 2";
+  src: url(../fonts/BalooThambi2-Bold.ttf);
+  font-weight: 700;
+}
+
+@font-face {
+  font-family: "Baloo Thambi 2";
+  src: url(../fonts/BalooThambi2-ExtraBold.ttf);
+  font-weight: 800;
 }
 
 * {
