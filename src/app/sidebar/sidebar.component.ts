@@ -1,5 +1,7 @@
 import { Component, OnInit, Output } from '@angular/core';
 import { Subject } from 'rxjs';
+import { Router } from '@angular/router';
+import { AuthService } from '../shared/auth.service';
 
 @Component({
   selector: 'sidebar',
@@ -12,7 +14,7 @@ export class SidebarComponent implements OnInit {
 
   @Output() component = new Subject<{ name: string }>();
 
-  constructor() { }
+  constructor(private router: Router, private auth: AuthService) { }
 
   ngOnInit(): void { }
 
@@ -38,4 +40,8 @@ export class SidebarComponent implements OnInit {
     this.component.next({ name: componentName });
   }
 
+  logout() {
+    this.auth.logout();
+    this.router.navigate(['']);
+  }
 }

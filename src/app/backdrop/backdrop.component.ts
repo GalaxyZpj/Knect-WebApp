@@ -28,7 +28,7 @@ export class BackdropComponent implements OnInit, AfterViewInit, OnDestroy {
   ngAfterViewInit(): void {
     setTimeout(() => {
       const componentRef = this.dcService.createDynamicComponent(this.container, this.components[this.component]);
-      (<CreatePostComponent>componentRef.instance).backdropRef = this.backdropRef;
+      (<any>componentRef.instance).backdropRef = this.backdropRef;
       this.renderer.addClass(document.body, 'backdrop-open');
     });
   }

@@ -151,16 +151,16 @@ export type Mutation = {
   unlikePost?: Maybe<UnlikePost>;
   /** Mutation to create a user and its profile  */
   createUser?: Maybe<CreateUser>;
-  /** Obtain JSON Web Token mutation */
   tokenAuth?: Maybe<ObtainJsonWebToken>;
   verifyToken?: Maybe<Verify>;
   refreshToken?: Maybe<Refresh>;
+  revokeToken?: Maybe<Revoke>;
 };
 
 
 /** Mutations available in the schema  */
 export type MutationCreateFeelingArgs = {
-  emoticon?: Maybe<Scalars['Upload']>;
+  emoticon: Scalars['Upload'];
   name: Scalars['String'];
 };
 
@@ -251,15 +251,22 @@ export type MutationVerifyTokenArgs = {
 
 /** Mutations available in the schema  */
 export type MutationRefreshTokenArgs = {
-  token?: Maybe<Scalars['String']>;
+  refreshToken?: Maybe<Scalars['String']>;
 };
 
-/** Obtain JSON Web Token mutation */
+
+/** Mutations available in the schema  */
+export type MutationRevokeTokenArgs = {
+  refreshToken?: Maybe<Scalars['String']>;
+};
+
 export type ObtainJsonWebToken = {
    __typename?: 'ObtainJSONWebToken';
   payload: Scalars['GenericScalar'];
   refreshExpiresIn: Scalars['Int'];
+  user?: Maybe<UserType>;
   token: Scalars['String'];
+  refreshToken: Scalars['String'];
 };
 
 /**
@@ -469,6 +476,12 @@ export type Refresh = {
   payload: Scalars['GenericScalar'];
   refreshExpiresIn: Scalars['Int'];
   token: Scalars['String'];
+  refreshToken: Scalars['String'];
+};
+
+export type Revoke = {
+   __typename?: 'Revoke';
+  revoked: Scalars['Int'];
 };
 
 /**
@@ -537,17 +550,64 @@ export type Verify = {
   payload: Scalars['GenericScalar'];
 };
 
-export type AuthorizeUserMutationVariables = {
+export type TokenAuthMutationVariables = {
   username: Scalars['String'];
   password: Scalars['String'];
 };
 
 
-export type AuthorizeUserMutation = (
+export type TokenAuthMutation = (
   { __typename?: 'Mutation' }
   & { tokenAuth?: Maybe<(
     { __typename?: 'ObtainJSONWebToken' }
-    & Pick<ObtainJsonWebToken, 'token' | 'payload' | 'refreshExpiresIn'>
+    & Pick<ObtainJsonWebToken, 'token' | 'payload' | 'refreshToken' | 'refreshExpiresIn'>
+    & { user?: Maybe<(
+      { __typename?: 'UserType' }
+      & Pick<UserType, 'username'>
+      & { profile?: Maybe<(
+        { __typename?: 'ProfileType' }
+        & Pick<ProfileType, 'firstName' | 'lastName'>
+      )> }
+    )> }
+  )> }
+);
+
+export type VerifyTokenMutationVariables = {
+  token: Scalars['String'];
+};
+
+
+export type VerifyTokenMutation = (
+  { __typename?: 'Mutation' }
+  & { verifyToken?: Maybe<(
+    { __typename?: 'Verify' }
+    & Pick<Verify, 'payload'>
+  )> }
+);
+
+export type RefreshTokenMutationVariables = {
+  refreshToken: Scalars['String'];
+};
+
+
+export type RefreshTokenMutation = (
+  { __typename?: 'Mutation' }
+  & { refreshToken?: Maybe<(
+    { __typename?: 'Refresh' }
+    & Pick<Refresh, 'token' | 'payload' | 'refreshToken' | 'refreshExpiresIn'>
+  )> }
+);
+
+export type RevokeTokenMutationVariables = {
+  refreshToken: Scalars['String'];
+};
+
+
+export type RevokeTokenMutation = (
+  { __typename?: 'Mutation' }
+  & { revokeToken?: Maybe<(
+    { __typename?: 'Revoke' }
+    & Pick<Revoke, 'revoked'>
   )> }
 );
 
@@ -644,11 +704,52 @@ export type FeelingMutation = (
   )> }
 );
 
-export const AuthorizeUserDocument = gql`
-    mutation AuthorizeUser($username: String!, $password: String!) {
+export const TokenAuthDocument = gql`
+    mutation TokenAuth($username: String!, $password: String!) {
   tokenAuth(username: $username, password: $password) {
     token
     payload
+    refreshToken
+    refreshExpiresIn
+    user {
+      username
+      profile {
+        firstName
+        lastName
+      }
+    }
+  }
+}
+    `;
+
+  @Injectable({
+    providedIn: 'root'
+  })
+  export class TokenAuthGQL extends Apollo.Mutation<TokenAuthMutation, TokenAuthMutationVariables> {
+    document = TokenAuthDocument;
+    
+  }
+export const VerifyTokenDocument = gql`
+    mutation VerifyToken($token: String!) {
+  verifyToken(token: $token) {
+    payload
+  }
+}
+    `;
+
+  @Injectable({
+    providedIn: 'root'
+  })
+  export class VerifyTokenGQL extends Apollo.Mutation<VerifyTokenMutation, VerifyTokenMutationVariables> {
+    document = VerifyTokenDocument;
+    
+  }
+export const RefreshTokenDocument = gql`
+    mutation RefreshToken($refreshToken: String!) {
+  refreshToken(refreshToken: $refreshToken) {
+    token
+    payload
+    refreshToken
     refreshExpiresIn
   }
 }
@@ -657,8 +758,23 @@ export const AuthorizeUserDocument = gql`
   @Injectable({
     providedIn: 'root'
   })
-  export class AuthorizeUserGQL extends Apollo.Mutation<AuthorizeUserMutation, AuthorizeUserMutationVariables> {
-    document = AuthorizeUserDocument;
+  export class RefreshTokenGQL extends Apollo.Mutation<RefreshTokenMutation, RefreshTokenMutationVariables> {
+    document = RefreshTokenDocument;
+    
+  }
+export const RevokeTokenDocument = gql`
+    mutation RevokeToken($refreshToken: String!) {
+  revokeToken(refreshToken: $refreshToken) {
+    revoked
+  }
+}
+    `;
+
+  @Injectable({
+    providedIn: 'root'
+  })
+  export class RevokeTokenGQL extends Apollo.Mutation<RevokeTokenMutation, RevokeTokenMutationVariables> {
+    document = RevokeTokenDocument;
     
   }
 export const RegisterUserDocument = gql`

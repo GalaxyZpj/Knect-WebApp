@@ -1964,9 +1964,13 @@
                 "name": "emoticon",
                 "description": null,
                 "type": {
-                  "kind": "SCALAR",
-                  "name": "Upload",
-                  "ofType": null
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Upload",
+                    "ofType": null
+                  }
                 },
                 "defaultValue": null
               },
@@ -2346,7 +2350,7 @@
           },
           {
             "name": "tokenAuth",
-            "description": "Obtain JSON Web Token mutation",
+            "description": null,
             "args": [
               {
                 "name": "username",
@@ -2413,7 +2417,7 @@
             "description": null,
             "args": [
               {
-                "name": "token",
+                "name": "refreshToken",
                 "description": null,
                 "type": {
                   "kind": "SCALAR",
@@ -2426,6 +2430,29 @@
             "type": {
               "kind": "OBJECT",
               "name": "Refresh",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "revokeToken",
+            "description": null,
+            "args": [
+              {
+                "name": "refreshToken",
+                "description": null,
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                },
+                "defaultValue": null
+              }
+            ],
+            "type": {
+              "kind": "OBJECT",
+              "name": "Revoke",
               "ofType": null
             },
             "isDeprecated": false,
@@ -3068,7 +3095,7 @@
       {
         "kind": "OBJECT",
         "name": "ObtainJSONWebToken",
-        "description": "Obtain JSON Web Token mutation",
+        "description": null,
         "fields": [
           {
             "name": "payload",
@@ -3103,7 +3130,35 @@
             "deprecationReason": null
           },
           {
+            "name": "user",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "UserType",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "token",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "refreshToken",
             "description": null,
             "args": [],
             "type": {
@@ -3208,6 +3263,49 @@
               "ofType": {
                 "kind": "SCALAR",
                 "name": "String",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "refreshToken",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [],
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "Revoke",
+        "description": null,
+        "fields": [
+          {
+            "name": "revoked",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Int",
                 "ofType": null
               }
             },

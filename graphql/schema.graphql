@@ -1,5 +1,5 @@
 # source: http://localhost:8000/
-# timestamp: Fri May 15 2020 19:36:45 GMT+0530 (India Standard Time)
+# timestamp: Thu May 21 2020 23:20:08 GMT+0530 (India Standard Time)
 
 """
 ObjectType representation for Comment model.
@@ -106,7 +106,7 @@ type Mutation {
   """
   Creates Feeling for the Post Interface, can only be accessed by superuser 
   """
-  createFeeling(emoticon: Upload, name: String!): CreateFeeling
+  createFeeling(emoticon: Upload!, name: String!): CreateFeeling
 
   """
   Creates Activity for the Post Interface, can only be accessed by superuser 
@@ -144,18 +144,18 @@ type Mutation {
 
   """Mutation to create a user and its profile """
   createUser(userData: UserInput!): CreateUser
-
-  """Obtain JSON Web Token mutation"""
   tokenAuth(username: String!, password: String!): ObtainJSONWebToken
   verifyToken(token: String): Verify
-  refreshToken(token: String): Refresh
+  refreshToken(refreshToken: String): Refresh
+  revokeToken(refreshToken: String): Revoke
 }
 
-"""Obtain JSON Web Token mutation"""
 type ObtainJSONWebToken {
   payload: GenericScalar!
   refreshExpiresIn: Int!
+  user: UserType
   token: String!
+  refreshToken: String!
 }
 
 """
@@ -361,6 +361,11 @@ type Refresh {
   payload: GenericScalar!
   refreshExpiresIn: Int!
   token: String!
+  refreshToken: String!
+}
+
+type Revoke {
+  revoked: Int!
 }
 
 """

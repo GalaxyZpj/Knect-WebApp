@@ -1,8 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
-
-import { RegisterUserGQL, AuthorizeUserGQL } from 'src/generated/types.graphql-gen';
+import { AuthService } from '../shared/auth.service';
 
 
 @Component({
@@ -15,21 +14,17 @@ export class HomeComponent implements OnInit {
   @ViewChild('loginForm') loginForm: NgForm;
   @ViewChild('registerForm') registerForm: NgForm;
 
-  constructor(private register: RegisterUserGQL, private login: AuthorizeUserGQL, private router: Router) { }
+  constructor(private auth: AuthService, private router: Router) { }
 
   ngOnInit(): void {
-    if (localStorage.getItem('token')) {
-      this.router.navigate(['dashboard']);
-    }
   }
 
   onRegisterSubmit() {
     this.loginForm.resetForm()
     if (this.registerForm.valid) {
-      this.register.mutate(this.registerForm.value).subscribe(({ data }) => {
-        console.log(data);
-      }, error => {
+      this.auth.register(this.registerForm.value).subscribe(error => {
         this.registerForm.reset();
+        throw(error);
       });
     }
   }
@@ -37,13 +32,11 @@ export class HomeComponent implements OnInit {
   onLoginSubmit() {
     this.registerForm.resetForm()
     if (this.loginForm.valid) {
-      this.login.mutate(this.loginForm.value).subscribe(({ data }) => {
-        localStorage.setItem('token', data.tokenAuth.token);
-        localStorage.setItem('refreshExpiresIn', String(data.tokenAuth.refreshExpiresIn));
-        localStorage.setItem('username', data.tokenAuth.payload.username);
+      this.auth.login(this.loginForm.value).subscribe(() => {
         this.router.navigate(['dashboard']);
       }, error => {
         this.loginForm.reset({username: this.loginForm.value.username});
+        throw(error);
       });
     }
   }
