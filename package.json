@@ -30,6 +30,7 @@
     "@fortawesome/free-brands-svg-icons": "^5.13.0",
     "@fortawesome/free-regular-svg-icons": "^5.13.0",
     "@fortawesome/free-solid-svg-icons": "^5.13.0",
+    "@pikselin/ngx-fittext": "^1.0.5",
     "angular-svg-icon": "^9.2.0",
     "apollo-angular": "^1.9.1",
     "apollo-angular-link-http": "^1.10.0",

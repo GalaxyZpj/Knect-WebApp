@@ -109,6 +109,75 @@ query FetchFriends {
   }
 }
 
+query MyPosts {
+  myPosts {
+    id
+    user {
+      id
+      username
+      profile {
+        firstName
+        lastName
+      }
+    }
+    shareWith
+    content
+    likes
+    usersLiked {
+      id
+      username
+      profile {
+        firstName
+        lastName
+      }
+    }
+    friendsTagged {
+      id
+      username
+      profile {
+        firstName
+        lastName
+      }
+    }
+    feeling {
+      id
+      name
+      emoticon
+    }
+    subActivity {
+      id
+      name
+      emoticon
+    }
+    location
+    liked
+    images {
+      id
+      image
+    }
+    videos {
+      id
+      video
+    }
+    gifs {
+      id
+      gif
+    }
+    comments {
+      id
+      content
+      user {
+        id
+        username
+        profile {
+          firstName
+          lastName
+        }
+      }
+    }
+  }
+}
+
 mutation feeling($name: String!, $emoticon: Upload!) {
   createFeeling(name: $name, emoticon: $emoticon) {
     expression {
@@ -116,5 +185,31 @@ mutation feeling($name: String!, $emoticon: Upload!) {
       name
       emoticon
     }
+  }
+}
+
+mutation CreatePost(
+  $shareWith: String!,
+  $content: String!,
+  $friendsTagged: [String!],
+  $feelingId: String,
+  $subActivityId: String,
+  $location: String,
+  $images: [Upload!],
+  $videos: [Upload!],
+  $gifs: [Upload!]
+) {
+  createPost(postData: {
+    shareWith: $shareWith,
+    content: $content,
+    friendsTagged: $friendsTagged,
+    feelingId: $feelingId,
+    subActivityId: $subActivityId,
+    location: $location,
+    images: $images,
+    videos: $videos,
+    gifs: $gifs
+  }) {
+    success
   }
 }

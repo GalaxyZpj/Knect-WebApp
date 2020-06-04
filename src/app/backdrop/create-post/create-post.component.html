@@ -1,13 +1,13 @@
 <div class="create-post-div" id="createPostDiv">
   <span class="close-backdrop" (click)="this.backdropRef.clear()"><fa-icon [icon]="crossIcon"></fa-icon></span>
   <h2 class="title">Create Post</h2>
-  <form #createPostForm id="createPostForm">
+  <form id="createPostForm" (ngSubmit)="onSubmit()" #createPostForm="ngForm">
     <div class="user-bar">
       <div class="user-image"></div>
       <div class="user-name"><span>Pranav Jain</span></div>
       <div class="share-privacy">
         <label for="sharedWith">Share with:&nbsp;&nbsp;</label>
-        <select name="shared_with" class="custom-select" ngModel>
+        <select name="shareWith" class="custom-select" [(ngModel)]="sharedWithDefault">
           <option value="public">Public</option>
           <option value="friends">Friends</option>
           <option value="only_me">Only me</option>
@@ -29,5 +29,3 @@
 </div>
 
 <ng-template #nestedDynamicComponent></ng-template>
-
-

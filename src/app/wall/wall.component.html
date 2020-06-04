@@ -1,17 +1,24 @@
 <div class="wall">
-  <div class="post-container">
+  <div class="post-container" *ngFor="let post of posts">
       <div class="post">
-
-      </div>
-  </div>
-  <div class="post-container">
-      <div class="post">
-
-      </div>
-  </div>
-  <div class="post-container">
-      <div class="post">
-
+        <div class="post-header">
+          <span class="user-image"></span>
+          <span class="user-name">{{ post.user.firstName }} {{ post.user.lastName }}</span>
+        </div>
+        <div class="post-content">
+          <fit-text
+            text="{{ post.content }}"
+            height="100%"
+            width="100%"
+            maxFontSize="32px"
+            minFontSize="18px">
+          </fit-text>
+        </div>
+        <div class="post-reactions">
+          <button>Like</button>
+          <button>Comment</button>
+          <button>Share</button>
+        </div>
       </div>
   </div>
 </div>

@@ -8,6 +8,7 @@ import { GraphQLModule } from './graphql.module';
 import { AppRoutingModule } from './app-routing.module';
 import { AngularSvgIconModule } from 'angular-svg-icon';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { NgxFitTextModule } from '@pikselin/ngx-fittext';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
@@ -44,7 +45,8 @@ import { AddFeelingComponent } from './backdrop/add-feeling/add-feeling.componen
     FormsModule,
     AngularSvgIconModule.forRoot(),
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
-    FontAwesomeModule
+    FontAwesomeModule,
+    NgxFitTextModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

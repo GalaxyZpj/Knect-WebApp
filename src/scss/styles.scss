@@ -44,6 +44,10 @@
   background-color: var(--ui-primary);
 }
 
+html, body {
+  min-height: 100vh;
+}
+
 body {
   margin: 0;
   overscroll-behavior-y: none;

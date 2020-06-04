@@ -74,6 +74,7 @@ export type CreateFeeling = {
 export type CreatePost = {
    __typename?: 'CreatePost';
   post?: Maybe<PostType>;
+  success?: Maybe<Scalars['Boolean']>;
 };
 
 /** Creates SubActivity for the Post Interface, can only be accessed by superuser  */
@@ -115,6 +116,46 @@ export type DeleteSubComment = {
    __typename?: 'DeleteSubComment';
   success?: Maybe<Scalars['Boolean']>;
   message?: Maybe<Scalars['String']>;
+};
+
+/** Debugging information for the current query. */
+export type DjangoDebug = {
+   __typename?: 'DjangoDebug';
+  /** Executed SQL queries for this API query. */
+  sql?: Maybe<Array<Maybe<DjangoDebugSql>>>;
+};
+
+/** Represents a single database query made to a Django managed DB. */
+export type DjangoDebugSql = {
+   __typename?: 'DjangoDebugSQL';
+  /** The type of database being used (e.g. postrgesql, mysql, sqlite). */
+  vendor: Scalars['String'];
+  /** The Django database alias (e.g. 'default'). */
+  alias: Scalars['String'];
+  /** The actual SQL sent to this database. */
+  sql?: Maybe<Scalars['String']>;
+  /** Duration of this database query in seconds. */
+  duration: Scalars['Float'];
+  /** The raw SQL of this query, without params. */
+  rawSql: Scalars['String'];
+  /** JSON encoded database query parameters. */
+  params: Scalars['String'];
+  /** Start time of this database query. */
+  startTime: Scalars['Float'];
+  /** Stop time of this database query. */
+  stopTime: Scalars['Float'];
+  /** Whether this database query took more than 10 seconds. */
+  isSlow: Scalars['Boolean'];
+  /** Whether this database query was a SELECT. */
+  isSelect: Scalars['Boolean'];
+  /** Postgres transaction ID if available. */
+  transId?: Maybe<Scalars['String']>;
+  /** Postgres transaction status if available. */
+  transStatus?: Maybe<Scalars['String']>;
+  /** Postgres isolation level if available. */
+  isoLevel?: Maybe<Scalars['String']>;
+  /** Postgres connection encoding if available. */
+  encoding?: Maybe<Scalars['String']>;
 };
 
 
@@ -451,6 +492,7 @@ export type Query = {
   allFriendsPosts?: Maybe<Array<Maybe<PostType>>>;
   user?: Maybe<UserType>;
   userList?: Maybe<Array<Maybe<UserType>>>;
+  _debug?: Maybe<DjangoDebug>;
 };
 
 
@@ -687,6 +729,65 @@ export type FetchFriendsQuery = (
   )>>> }
 );
 
+export type MyPostsQueryVariables = {};
+
+
+export type MyPostsQuery = (
+  { __typename?: 'Query' }
+  & { myPosts?: Maybe<Array<Maybe<(
+    { __typename?: 'PostType' }
+    & Pick<PostType, 'id' | 'shareWith' | 'content' | 'likes' | 'location' | 'liked'>
+    & { user: (
+      { __typename?: 'UserType' }
+      & Pick<UserType, 'id' | 'username'>
+      & { profile?: Maybe<(
+        { __typename?: 'ProfileType' }
+        & Pick<ProfileType, 'firstName' | 'lastName'>
+      )> }
+    ), usersLiked: Array<(
+      { __typename?: 'UserType' }
+      & Pick<UserType, 'id' | 'username'>
+      & { profile?: Maybe<(
+        { __typename?: 'ProfileType' }
+        & Pick<ProfileType, 'firstName' | 'lastName'>
+      )> }
+    )>, friendsTagged: Array<(
+      { __typename?: 'UserType' }
+      & Pick<UserType, 'id' | 'username'>
+      & { profile?: Maybe<(
+        { __typename?: 'ProfileType' }
+        & Pick<ProfileType, 'firstName' | 'lastName'>
+      )> }
+    )>, feeling?: Maybe<(
+      { __typename?: 'PostFeelingType' }
+      & Pick<PostFeelingType, 'id' | 'name' | 'emoticon'>
+    )>, subActivity?: Maybe<(
+      { __typename?: 'PostSubActivityType' }
+      & Pick<PostSubActivityType, 'id' | 'name' | 'emoticon'>
+    )>, images: Array<(
+      { __typename?: 'PostImageType' }
+      & Pick<PostImageType, 'id' | 'image'>
+    )>, videos: Array<(
+      { __typename?: 'PostVideoType' }
+      & Pick<PostVideoType, 'id' | 'video'>
+    )>, gifs: Array<(
+      { __typename?: 'PostGIFType' }
+      & Pick<PostGifType, 'id' | 'gif'>
+    )>, comments: Array<(
+      { __typename?: 'CommentType' }
+      & Pick<CommentType, 'id' | 'content'>
+      & { user: (
+        { __typename?: 'UserType' }
+        & Pick<UserType, 'id' | 'username'>
+        & { profile?: Maybe<(
+          { __typename?: 'ProfileType' }
+          & Pick<ProfileType, 'firstName' | 'lastName'>
+        )> }
+      ) }
+    )> }
+  )>>> }
+);
+
 export type FeelingMutationVariables = {
   name: Scalars['String'];
   emoticon: Scalars['Upload'];
@@ -701,6 +802,27 @@ export type FeelingMutation = (
       { __typename?: 'PostFeelingType' }
       & Pick<PostFeelingType, 'id' | 'name' | 'emoticon'>
     )> }
+  )> }
+);
+
+export type CreatePostMutationVariables = {
+  shareWith: Scalars['String'];
+  content: Scalars['String'];
+  friendsTagged?: Maybe<Array<Scalars['String']>>;
+  feelingId?: Maybe<Scalars['String']>;
+  subActivityId?: Maybe<Scalars['String']>;
+  location?: Maybe<Scalars['String']>;
+  images?: Maybe<Array<Scalars['Upload']>>;
+  videos?: Maybe<Array<Scalars['Upload']>>;
+  gifs?: Maybe<Array<Scalars['Upload']>>;
+};
+
+
+export type CreatePostMutation = (
+  { __typename?: 'Mutation' }
+  & { createPost?: Maybe<(
+    { __typename?: 'CreatePost' }
+    & Pick<CreatePost, 'success'>
   )> }
 );
 
@@ -861,6 +983,84 @@ export const FetchFriendsDocument = gql`
     document = FetchFriendsDocument;
     
   }
+export const MyPostsDocument = gql`
+    query MyPosts {
+  myPosts {
+    id
+    user {
+      id
+      username
+      profile {
+        firstName
+        lastName
+      }
+    }
+    shareWith
+    content
+    likes
+    usersLiked {
+      id
+      username
+      profile {
+        firstName
+        lastName
+      }
+    }
+    friendsTagged {
+      id
+      username
+      profile {
+        firstName
+        lastName
+      }
+    }
+    feeling {
+      id
+      name
+      emoticon
+    }
+    subActivity {
+      id
+      name
+      emoticon
+    }
+    location
+    liked
+    images {
+      id
+      image
+    }
+    videos {
+      id
+      video
+    }
+    gifs {
+      id
+      gif
+    }
+    comments {
+      id
+      content
+      user {
+        id
+        username
+        profile {
+          firstName
+          lastName
+        }
+      }
+    }
+  }
+}
+    `;
+
+  @Injectable({
+    providedIn: 'root'
+  })
+  export class MyPostsGQL extends Apollo.Query<MyPostsQuery, MyPostsQueryVariables> {
+    document = MyPostsDocument;
+    
+  }
 export const FeelingDocument = gql`
     mutation feeling($name: String!, $emoticon: Upload!) {
   createFeeling(name: $name, emoticon: $emoticon) {
@@ -878,5 +1078,20 @@ export const FeelingDocument = gql`
   })
   export class FeelingGQL extends Apollo.Mutation<FeelingMutation, FeelingMutationVariables> {
     document = FeelingDocument;
+    
+  }
+export const CreatePostDocument = gql`
+    mutation CreatePost($shareWith: String!, $content: String!, $friendsTagged: [String!], $feelingId: String, $subActivityId: String, $location: String, $images: [Upload!], $videos: [Upload!], $gifs: [Upload!]) {
+  createPost(postData: {shareWith: $shareWith, content: $content, friendsTagged: $friendsTagged, feelingId: $feelingId, subActivityId: $subActivityId, location: $location, images: $images, videos: $videos, gifs: $gifs}) {
+    success
+  }
+}
+    `;
+
+  @Injectable({
+    providedIn: 'root'
+  })
+  export class CreatePostGQL extends Apollo.Mutation<CreatePostMutation, CreatePostMutationVariables> {
+    document = CreatePostDocument;
     
   }
